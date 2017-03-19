@@ -1,0 +1,180 @@
+﻿MIDI SONG COMPARISON SPECS AND REQUIREMENTS
+Document version: 02/19/2017 v1.0
+
+
+Project Agreement and Statement of Work
+THIS PROJECT AGREEMENT AND STATEMENT OF WORK (this “Agreement”) is entered into by and between the undersigned Buyer and Service Provider as of the Effective Date.  The Buyer and Service Provider are sometimes referred to collectively herein as the “Parties” and individually as a “Party.”  This Agreement is made in pursuance of the Project described herein.  All capitalized terms not defined in this Agreement have the meanings given to such terms in the Terms of Service Agreement (“Terms of Service”) available, unless the context requires otherwise.
+
+1. BACKGROUND AND INITIAL OBLIGATIONS.
+	1.1 The “Client” is:
+		Kenrick Mock
+		University of Alaska Anchorage
+		2900 Spirit Dr
+		Anchorage, AK 99508
+		kjmock@alaska.edu
+
+	1.2 The “Service Providers” are:
+		Sikharin Bank Kitchpanich
+		University of Alaska Anchorage
+		2900 Spirit Dr
+		Anchorage, AK 99508
+		sbkitchpanich3@alaska.edu
+ 
+		Joseph Benjamin Arguelles Sasis
+		University of Alaska Anchorage
+		2900 Spirit Dr
+		Anchorage, AK 99508
+		jbsasis@alaska.edu
+
+	1.3 The “Project” is:
+		The MIDI song comparison program: it is a program which takes input from a MIDI file provided by the user and compares those inputs to notes of another MIDI file provided by the user.  The program will give the user a score based on how closely the two MIDI files match each other.    
+
+	1.3.A. Project Description
+		The MIDI song comparison program takes in two input MIDI files. The first input file (namely, the expert file) will be used as a guide to compare its identicalness to the second input file (namely, the amateur file). The program will scan for differences between the expert and amateur files. These differences include missed notes, repeated notes, and tempo differences. Once completed, the program will output a number representing the “score” based on how identical the two MIDI files are. 
+	1.3.B. Key assumptions
+		It is assumed that the user will only attempt to load .MID or .MIDI files into the program.
+		The MIDI song comparison program will only support MIDI files with one instrument, though it may contain chords in the MIDI files.
+		The user must have the Java Runtime Environment installed on their system.
+		The MIDI song comparison program is not expected to accept Type 2 MIDI files as valid input files.
+		The MIDI song comparison program is to be run on a desktop/personal computer.  The program will not be run on mobile devices. 
+	1.3.C. Scope of services
+		Missing Notes Identification: The program will detect the absence of notes played in the amateur file with respect to the expert file.
+		Repeated/Inserted Notes Identification:  The program will detect the erroneous repetition of notes played in the amateur file with respect to the expert file.
+		Incorrectly Played Notes Identification: The program will detect the erroneous play of notes in the amateur file with respect to the expert file.
+		Tempo Difference Identification: The program will detect tempo differences within sections of the amateur file with respect to the expert file.
+		Score Generation: The program will output a score based on the total differences (i.e. summation of the aforementioned differences) between the amateur file and expert file.
+	1.3.D. Milestone Deliverables
+		February 17, 2016 - Status report on loading and reading MIDI files
+		February 24, 2016 - Produce sample MIDI files for testing
+		March 3-10, 2016 - Design for implementation to compare MIDI files
+		< to be filled out as project continues >
+
+	1.4 Statement of Work:
+		If Client and Service Providers have agreed to a written statement of work, written project plan, or other written communication to specify in more detail the Project scope, required features or functionality, deliverables, milestones, development methods, resources, communications, training, acceptance, change control, payment, or other terms, such writing (“SOW”) is incorporated in and made a part of this Agreement.  The SOW may be appended to this Agreement as an Attachment.
+
+        1.5 Escrow:  
+		The Parties will not  require “Escrow” in the Business Terms for the Project.  If Escrow is required, the Escrow Terms and Conditions contained in the Terms of Service will govern this Agreement.
+
+
+2. ENGAGEMENT AND PERFORMANCE OF SERVICES.
+
+	2.1 Project Work Product:
+		Buyer hereby engages Service Providers to deliver the Work Product to Client, in accordance with the terms and conditions of this Agreement and the Terms of Service.  As used in this Agreement, the “Work Product” means any and all work product developed by Service Provider as required to complete the Project and delivered to the Client in the performance of the Project, as specified in the Business Terms, the SOW, and this Agreement.
+         
+	2.2 Performance:
+		Service Provider will perform the services necessary to complete the Project in a timely and professional manner, consistent with industry standards, at a location, place and time that Service Provider deems appropriate, and all in accordance with the Business Terms, the SOW, and this Agreement.  The manner and means that Service Provider chooses to complete the Project are in Service Provider’s sole discretion and control.
+
+
+3. COMPETITIVE OR CONFLICTING PROJECTS.
+	Service Provider agrees, during the term of this Agreement, not to enter into a contract or accept an obligation that is inconsistent or incompatible with Service Provider’s obligations under this Agreement. Service Provider warrants that there is no such contract or obligation in effect as of the Effective Date.  Service Provider further agrees not to disclose to, deliver to, or induce Client to use any confidential information that belongs to anyone other than Client or Service Provider.
+
+
+4. ENTIRE AGREEMENT
+	This Agreement is the final, complete and exclusive agreement of the parties with respect to the subject matters hereof and supersedes and merges all prior discussions between the parties with respect to such subject matters. No modification of or amendment to this Agreement, or any waiver of any rights under this Agreement, will be effective unless in writing and signed by Service Provider and Client. The terms of this Agreement will govern all Projects and services undertaken by Service Provider for Client. In the event of any conflict between this Agreement and the express written terms of an agreement applicable to an engagement, the express written terms of such agreement will govern, but only to the extent and with respect to the services set forth therein.
+
+
+____________________________________________
+Client: Type Name, Signature, Date
+
+
+____________________________________________
+
+
+____________________________________________
+Service Providers: Type Name, Signature, Date
+
+
+
+
+
+
+Project Requirements and Specifications
+
+Objectives and Background
+
+[1] Motivation
+	This project is meant to aid in analyzing the difference between performances from a professional (i.e. expert) and an amateur piano player.  For example, the professional will play a song, generating a MIDI file from a MIDI keyboard, then the amateur will play the same song and also generate a MIDI file.  These files will be read into the program and compared.  This program was designed for research purposes and will be used in tandem with software and hardware that tracks a piano player’s eyes.  This program is not to be sold commercially.  
+[2] Overall Project Description
+	The MIDI song comparison program is one that reads two MIDI files (a expert file and a amateur file) and compare the identicalness of the two files.  A “score” will be displayed to the user, indicating how closely the two MIDI files match each other.  This score represents the number of differences between the two files, which is based on four criteria:  deletions, insertions, replacements, and tempo differences.  Deletions are when the user misses a note. Insertions are when the user plays an extra note. Replacements are when the user plays the wrong note.  Tempo differences are differences in the overall tempo (i.e. speed of note sequence progression) between the two files. A perfect score would be a zero, as no differences were detected.  
+
+
+Scope of Services
+1. Loading the MIDI files
+[1]  The working directory is set to the directory that contains “MIDIcompare.jar” .
+[2]  The MIDI song comparison program is started by the Java command “java –jar MIDIcompare.jar” followed by pressing the ‘enter’ key.    
+[3]  The MIDI song comparison program uses whatever file directory it is placed in.
+[4]  In command descriptions, text represents itself, except that names in angle brackets "< >" represent parameters. "<file>" is the name of a file (parameter).
+[5]  The command line will prompt the user with a message to input the name of the first MIDI file.
+[6]  The message will state, “Please input the name of the expert file.”
+[7]  The format of the name is either: (a) <file>.MID; or (b) <file>.MIDI;
+[8]  The input file name is followed by pressing ‘enter’ key.
+[9]  If the name of the file is invalid or the file is not found, the command line will prompt the user with the message, “Please try another file.”
+[10]  The user can then input a file name.  This will repeat until the file is valid.
+[11]  The command line will then prompt the user with a message to input the name of the second MIDI file.
+[12]  The message will state, “Please input the name of the amateur file.”
+[13]  The format of the name is either: (a) <file>.MID; or (b) <file>.MIDI;
+[14]  The input file name is followed by pressing ‘enter’ key.
+[15]  If the name of the file is invalid or the file is not found, the command line will prompt the user with the message, “Please try another file.”
+[16]  The user can then input a file name.  This will repeat until the file is valid.
+
+
+2. Scoring the MIDI files
+[17]  The command line will output a message, containing a “score” based on how identical the two files are.
+[18]  The message will state, “Your score: ‘#’ ” where ‘#’ represents the score generated by the program.
+18.a. The score will be the number of differences found between the two MIDI files.  A score of 0 represents a perfect score, while increasing numbers represent a worse score. 
+
+
+3. Score Breakdown
+[19]  In addition to the overall score, the program will output a score breakdown based on four different criteria, namely: Missing Notes, Repeated/Inserted Notes, Incorrectly Played Notes, and Tempo Differences.
+
+
+3.1. Missing Notes
+[20]  The program will count the number of instances where the amateur file missed playing notes with respect to the sequence of notes in the expert file.
+[21]  In the event of chords (i.e. multiple notes played simultaneously)  in the sequence, incorrectly played notes in a chord will still be accounted for in the score breakdown. 
+	21.a. A single chord where all of the notes are not played in the amateur file corresponds to a score of “1”. Partially missed notes in the chord correspond to a score proportional to the number of incorrectly played notes. E.g. if the expert file’s chord contains the notes (C,E,G) and the amateur file’s chord only contains the note (C), then the resulting score will be “0.666”.
+[22]  The command line will output a message, stating “Missed Notes Score: ‘#’ “ where ‘#’ represents the number of instances of missing notes detected by the program. 
+
+
+3.2 Repeated/Inserted Notes
+[23]  The program will count the number of instances where the amateur file mistakenly inserted notes in between the sequence with respect to the expert file.
+[24]  Each note incorrectly repeated/inserted into the amateur file note sequence will increment the score by 1.
+[25]  The program does not distinguish the differences between incorrectly repeated notes in a sequence and incorrectly inserted notes within a sequence; rather, the program treats the two cases as the same error of incorrectly inserting notes in the sequence.
+[26]  The command line will output a message, stating “Repeated/Inserted Notes Score: ‘#’ “ where ‘#’ represents the number of instances of repeated/inserted notes detected by the program. 
+
+
+3.3 Incorrectly Played Notes
+[27]  The program will count the number of instances where the amateur file plays the wrong notes in the sequence with respect to the expert file.
+[28]  In the event of chords (i.e. multiple notes played simultaneously)  in the sequence, incorrectly played notes in a chord will still be accounted for in the score breakdown. 
+	28.a. A single chord where all of the notes are played incorrectly in the amateur file corresponds to a score of “1”. Partially incorrectly played notes correspond to a score proportional to the number of incorrectly played notes. E.g. if the expert file’s chord contains the notes (C,E,G) and the amateur file’s chord contains the notes (C, E, F), then the resulting score will be “0.333”.
+[29]  The command line will output a message, stating “Incorrectly Played Notes Score: ‘#’ “ where ‘#’ represents the number of instances of incorrectly played notes detected by the program. 
+
+
+3.4. Tempo Differences
+[30] The program will calculate a score based on the differences between the overall tempo of the expert file and the overall tempo of the amateur file. 
+[31] The program does not determine specific tempo differences in the notes sequence; the program only looks at the average tempo of the MIDI files.
+[32] The command line will output a message, stating “Tempo Differences Score: ‘#’ “ where ‘#’ represents the calculated score based on the overall tempo difference between the expert and amateur files.
+
+
+4. Program Termination After Score Calculation
+[33]  After computing and breaking down the overall score, the command line will prompt the user to quit the program or restart with a message.
+[34]  The message will state, “To quit, press ‘Q’.  To restart, press ‘R’” .
+[35]  If the user presses the ‘Q’ key, the program will terminate.
+[36]  If the user presses the ‘R’ key, the program will return to its initial state, and prompt the user again for a expert file.[d][e][f]
+
+
+5. Expected Operation 
+MIDI song comparison users expect it to work as follows:
+The program prompts the user to enter the name of the expert MIDI file. Users will input a MIDI file to be read in as the expert file. The program then prompts users to enter the name of the amateur MIDI file that will be compared to the expert MIDI file. Users then input a second MIDI file to be read in as the amateur file. If the user inputs an invalid MIDI file name, then the program will prompt the user to re-enter a valid MIDI file name. When the user enters valid inputs for each of the aforementioned files, the program compares the two files, assessing how identical the amateur file is to the expert file. The program then outputs a number, which represents the “score” based on how identical the amateur file is to the expert files. Once completed, the program will prompt the user to either quit the program by pressing the ‘Q’ key, or restart the process by pressing the ‘R’ key. If the user chooses to quit the program (i.e. enter ‘Q’), then the program will terminate. Otherwise, if the user chooses to restart the process (i.e. enter ‘R’), then the program return to its initial state and prompt the user for input MIDI files. 
+
+
+6. Change Conflicts
+< To be filled out in future versions of the document >
+
+
+7. Assumptions
+[37]  The user must have the Java Runtime Environment Version 7 or higher installed on their system.
+[38]  The program will only run on a desktop/personal computer.  The program will not be run on mobile devices. 
+[39] It is assumed that the user will only attempt to load .MID or .MIDI files into the program.
+[40]  The MIDI song comparison program will only accept files of MID or MIDI format.  If the user attempts to use another file format as an input file, the program will show an error, and the user may choose another file. 
+[41] The MIDI song comparison program is not expected to accept Type 1 or Type 2 MIDI files as valid input files.
+[42]  The MIDI song comparison program will only support MIDI files with one instrument, though it may contain chords in the MIDI files. 
