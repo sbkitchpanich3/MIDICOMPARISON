@@ -1,3 +1,12 @@
+////////////////////////////////////
+//
+//  MIDI SONG COMPARISON PROGRAM
+//
+//  Joseph Sasis
+//  Banky Kitchpanich
+//
+////////////////////////////////////
+
 import java.io.File;
 import java.util.Scanner;
 import javax.sound.midi.MidiEvent;
@@ -7,7 +16,7 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 
-public class MidiParse {
+public class MidiParse extends LevenshteinEvaluation {
 
     ///////////////////////////////////////////////////
     //  PARSING VIA THE STANDARD JAVA SOUND LIBRARY
@@ -25,7 +34,9 @@ public class MidiParse {
     private static String stringOfNotes2 = "";
 
     public static void main(String[] args) throws Exception {
+
         // User input for the MIDI files.
+
         System.out.print("Please enter the name of the expert MIDI file: ");
         Scanner keyboard = new Scanner(System.in);
         String filename1 = keyboard.nextLine();
@@ -37,13 +48,50 @@ public class MidiParse {
         // The getNotes method is called to get the notes from the
         // MIDI files and put them all into a single string for
         // each song.
+
         stringOfNotes1 = getNotes(sequence1, stringOfNotes1);
         stringOfNotes2 = getNotes(sequence2, stringOfNotes2);
 
         // Prints the strings of notes.
-        System.out.println(stringOfNotes1);
-        System.out.println(stringOfNotes2);
 
+        System.out.println("Notes from expert file:  " + stringOfNotes1);
+        System.out.println("Notes from student file: " + stringOfNotes2);
+
+        /////////////////////////////////
+        //
+        // LEVENSHTEIN SECTION
+        //
+        /////////////////////////////////
+
+        LevenshteinEvaluation scoreEvaluator = new LevenshteinEvaluation();
+        System.out.println("Total score: " + scoreEvaluator.levenshteinDistance(stringOfNotes1, stringOfNotes2));
+
+
+        /////////////////////////////////
+        //
+        // SMITH-WATERMAN SECTION
+        //
+        // Maybe we'll use this later.
+        //
+        /////////////////////////////////
+
+
+        /*
+
+        //OverallScoreEvaluation scoreEvaluator = new OverallScoreEvaluation(stringOfNotes1, stringOfNotes2);
+
+        // Output maximum alignment score
+        System.out.println("\nThe maximum alignment score is: " + scoreEvaluator.getAlignmentScore());
+
+        // Output dynamic programming scoring matrix
+        System.out.println("The dynamic programming distance matrix is: ");
+        scoreEvaluator.printDPMatrix();
+
+        // Output all alignments with maximum score
+        System.out.println("\nThe alignments with the maximum score are: \n");
+        scoreEvaluator.printAlignments();
+
+        */
 
     }
 
@@ -68,12 +116,16 @@ public class MidiParse {
                         int note = key % 12;
                         String noteName = NOTE_NAMES[note];
                         int velocity = sm.getData2();
+
                         // The velocity is the force used to press a key on the keyboard.
                         // We are assuming that anything below velocity 20 is a mistake
                         // on the user's end, thus we will filter those out.
+
                         if (velocity > 20) {
+
                             // Reassigning sharp notes to other letters in order to make the
                             // comparison algorithm function correctly.
+
                             if(noteName.equals("C#"))
                                 noteName = "H";
                             if(noteName.equals("D#"))
@@ -84,7 +136,9 @@ public class MidiParse {
                                 noteName = "K";
                             if(noteName.equals("A#"))
                                 noteName = "L";
+
                             //System.out.println("@" + event.getTick() + " " + "Note on, " + noteName + octave + " key=" + key + " velocity: " + velocity);
+
                             // Adding to the string of notes that represents the whole song
                             noteString = noteString + noteName;
                         }
