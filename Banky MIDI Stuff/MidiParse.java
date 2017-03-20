@@ -16,7 +16,7 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 
-public class MidiParse extends LevenshteinEvaluation {
+public class MidiParse extends OverallScoreEvaluation {
 
     ///////////////////////////////////////////////////
     //  PARSING VIA THE STANDARD JAVA SOUND LIBRARY
@@ -67,6 +67,7 @@ public class MidiParse extends LevenshteinEvaluation {
         System.out.println("Total score: " + scoreEvaluator.levenshteinDistance(stringOfNotes1, stringOfNotes2));
 
 
+
         /////////////////////////////////
         //
         // SMITH-WATERMAN SECTION
@@ -78,7 +79,7 @@ public class MidiParse extends LevenshteinEvaluation {
 
         /*
 
-        //OverallScoreEvaluation scoreEvaluator = new OverallScoreEvaluation(stringOfNotes1, stringOfNotes2);
+        OverallScoreEvaluation scoreEvaluator = new OverallScoreEvaluation(stringOfNotes1, stringOfNotes2);
 
         // Output maximum alignment score
         System.out.println("\nThe maximum alignment score is: " + scoreEvaluator.getAlignmentScore());
