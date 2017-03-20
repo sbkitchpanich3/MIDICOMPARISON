@@ -7,7 +7,7 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 
-public class Main {
+public class MidiParse {
 
     ///////////////////////////////////////////////////
     //  PARSING VIA THE STANDARD JAVA SOUND LIBRARY
@@ -16,8 +16,8 @@ public class Main {
 
     public static final int NOTE_ON = 0x90;
     public static final String[] NOTE_NAMES = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
-    public static String stringOfNotes1 = "";
-    public static String stringOfNotes2 = "";
+    private static String stringOfNotes1 = "";
+    private static String stringOfNotes2 = "";
 
     public static void main(String[] args) throws Exception {
         System.out.print("Please enter the name of the expert MIDI file: ");
@@ -28,24 +28,21 @@ public class Main {
         Sequence sequence1 = MidiSystem.getSequence(new File(filename1));
         Sequence sequence2 = MidiSystem.getSequence(new File(filename2));
 
-        getNotes(sequence1, stringOfNotes1);
-        getNotes(sequence2, stringOfNotes2);
+        stringOfNotes1 = getNotes(sequence1, stringOfNotes1);
+        stringOfNotes2 = getNotes(sequence2, stringOfNotes2);
 
         System.out.println(stringOfNotes1);
         System.out.println(stringOfNotes2);
-        System.out.println(stringOfNotes2);
-        System.out.println(stringOfNotes2);
-        System.out.println(stringOfNotes2);
+
 
     }
 
-    public static void getNotes(Sequence sequence, String noteString) {
+    public static String getNotes(Sequence sequence, String noteString) {
         int trackNumber = 0;
 
         for (Track track : sequence.getTracks()) {
             trackNumber++;
-            System.out.println("Track " + trackNumber + ": size = " + track.size());
-            System.out.println();
+            //System.out.println("Track " + trackNumber + ": size = " + track.size());
 
             for (int i = 0; i < track.size(); i++) {
                 MidiEvent event = track.get(i);
@@ -62,7 +59,7 @@ public class Main {
                         String noteName = NOTE_NAMES[note];
                         int velocity = sm.getData2();
                         if (velocity != 0 && velocity > 20) {
-                            System.out.println("@" + event.getTick() + " " + "Note on, " + noteName + octave + " key=" + key + " velocity: " + velocity);
+                            //System.out.println("@" + event.getTick() + " " + "Note on, " + noteName + octave + " key=" + key + " velocity: " + velocity);
                             //Adding to the string of notes that represents the whole song
                             noteString = noteString + noteName;
                         }
@@ -70,6 +67,6 @@ public class Main {
                 }
             }
         }
-        System.out.println(noteString);
+        return noteString;
     }
 }
