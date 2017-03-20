@@ -26,6 +26,7 @@ public class MidiParse extends OverallScoreEvaluation {
     //
     ///////////////////////////////////////////////////
 
+    // self note - new 22 midi has 2 dels, 2 replace, 1 ins
 
     public static final int NOTE_ON = 0x90;
     public static final String[] NOTE_NAMES = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
@@ -101,7 +102,6 @@ public class MidiParse extends OverallScoreEvaluation {
 
         for (Track track : sequence.getTracks()) {
             trackNumber++;
-            //System.out.println("Track " + trackNumber + ": size = " + track.size());
 
             for (int i = 0; i < track.size(); i++) {
                 MidiEvent event = track.get(i);
@@ -137,8 +137,6 @@ public class MidiParse extends OverallScoreEvaluation {
                                 noteName = "K";
                             if(noteName.equals("A#"))
                                 noteName = "L";
-
-                            //System.out.println("@" + event.getTick() + " " + "Note on, " + noteName + octave + " key=" + key + " velocity: " + velocity);
 
                             // Adding to the string of notes that represents the whole song
                             noteString = noteString + noteName;
