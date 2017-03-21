@@ -16,7 +16,7 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Track;
 
-public class MidiParse extends OverallScoreEvaluation {
+public class MidiParse extends LevenshteinEvaluation {
 
     ///////////////////////////////////////////////////
     //  PARSING VIA THE STANDARD JAVA SOUND LIBRARY
