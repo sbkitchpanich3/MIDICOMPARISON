@@ -233,25 +233,4 @@ public class OverallScoreEvaluation {
             printAlignments(i-1, j-1, str1.charAt(i-1) + aligned1, str2.charAt(j-1) + aligned2);
     }
 
-    /*public static void main(String[] args)
-    {
-        Scanner keyboard = new Scanner(System.in);
-        System.out.print("Enter string 1 (space delimited): ");
-        String string1 = keyboard.nextLine();
-        System.out.print("Enter string 2 (space delimited): ");
-        String string2 = keyboard.nextLine();
-
-        OverallScoreEvaluation scoreEvaluator = new OverallScoreEvaluation(string1, string2);
-
-        // Output maximum alignment score
-        System.out.println("\nThe maximum alignment score is: " + scoreEvaluator.getAlignmentScore());
-
-        // Output dynamic programming scoring matrix
-        System.out.println("The dynamic programming distance matrix is: ");
-        scoreEvaluator.printDPMatrix();
-
-        // Output all alignments with maximum score
-        System.out.println("\nThe alignments with the maximum score are: \n");
-        scoreEvaluator.printAlignments();
-    }*/
 }

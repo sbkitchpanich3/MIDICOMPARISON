@@ -7,7 +7,9 @@
 //
 ////////////////////////////////////
 
+import java.io.*;
 import java.io.File;
+import java.util.Arrays;
 import java.util.Scanner;
 import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiMessage;
@@ -26,75 +28,107 @@ public class MidiParse extends LevenshteinEvaluation {
     //
     ///////////////////////////////////////////////////
 
-    // self note - new 22 midi has 2 dels, 2 replace, 1 ins
-
     public static final int NOTE_ON = 0x90;
     public static final String[] NOTE_NAMES = {"C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"};
 
-    private static String stringOfNotes1 = "";
-    private static String stringOfNotes2 = "";
+    private static String expertStr = "";
+    private static String studentStr = "";
+    private static char exitFlag = 'y';
+    private static String filename1 = "";
+    private static String filename2 = "";
 
     public static void main(String[] args) throws Exception {
 
-        // User input for the MIDI files.
-
-        System.out.print("Please enter the name of the expert MIDI file: ");
+        while(exitFlag == 'y' || exitFlag == 'Y') {
         Scanner keyboard = new Scanner(System.in);
-        String filename1 = keyboard.nextLine();
-        System.out.print("Please enter the name of the student MIDI file: ");
-        String filename2 = keyboard.nextLine();
-        Sequence sequence1 = MidiSystem.getSequence(new File(filename1));
-        Sequence sequence2 = MidiSystem.getSequence(new File(filename2));
+            boolean done = false;
 
-        // The getNotes method is called to get the notes from the
-        // MIDI files and put them all into a single string for
-        // each song.
+            do{
+                try {
+                    System.out.print("Please enter the name of the expert MIDI file: ");
 
-        stringOfNotes1 = getNotes(sequence1, stringOfNotes1);
-        stringOfNotes2 = getNotes(sequence2, stringOfNotes2);
+                    Scanner in = new Scanner(System.in);
+                    String tempFilename = in.nextLine();
+                    File file1 = new File(tempFilename);
+                    Scanner scan =  new Scanner(file1);
 
-        // Prints the strings of notes.
+                    setFilename1(tempFilename);
 
-        System.out.println("Notes from expert file:  " + stringOfNotes1);
-        System.out.println("Notes from student file: " + stringOfNotes2);
+                    done = true;
+                } catch (FileNotFoundException e) {
+                    System.out.println("File not found, please try again.");
+                }
+            }while(!done);
 
-        /////////////////////////////////
-        //
-        // LEVENSHTEIN SECTION
-        //
-        /////////////////////////////////
+            do{
+                try {
+                    done = false;
 
-        LevenshteinEvaluation scoreEvaluator = new LevenshteinEvaluation();
-        System.out.println("Total score: " + scoreEvaluator.levenshteinDistance(stringOfNotes1, stringOfNotes2));
+                    System.out.print("Please enter the name of the student MIDI file: ");
 
+                    Scanner in = new Scanner(System.in);
+                    String tempFilename = in.nextLine();
+                    File file1 = new File(tempFilename);
+                    Scanner scan =  new Scanner(file1);
 
+                    setFilename2(tempFilename);
 
-        /////////////////////////////////
-        //
-        // SMITH-WATERMAN SECTION
-        //
-        // Maybe we'll use this later.
-        //
-        /////////////////////////////////
+                    done = true;
+                } catch (FileNotFoundException e) {
+                    System.out.println("File not found, please try again.");
+                }
+            }while(!done);
 
+            // Generates a sequence for each MIDI file, where the
+            // note data will be collected from.
 
-        /*
+            Sequence expertSeq = MidiSystem.getSequence(new File(filename1));
+            Sequence studentSeq = MidiSystem.getSequence(new File(filename2));
 
-        OverallScoreEvaluation scoreEvaluator = new OverallScoreEvaluation(stringOfNotes1, stringOfNotes2);
+            // The getNotes method is called to get the notes from the
+            // MIDI files and put them all into a single string for
+            // each song.
 
-        // Output maximum alignment score
-        System.out.println("\nThe maximum alignment score is: " + scoreEvaluator.getAlignmentScore());
+            expertStr = "";
+            studentStr = "";
 
-        // Output dynamic programming scoring matrix
-        System.out.println("The dynamic programming distance matrix is: ");
-        scoreEvaluator.printDPMatrix();
+            expertStr = getNotes(expertSeq, expertStr);
+            studentStr = getNotes(studentSeq, studentStr);
 
-        // Output all alignments with maximum score
-        System.out.println("\nThe alignments with the maximum score are: \n");
-        scoreEvaluator.printAlignments();
+            // Uncomment this to print the strings of notes.
+            System.out.println("Notes from expert file:  " + expertStr);
+            System.out.println("Notes from student file: " + studentStr);
 
-        */
+            LevenshteinEvaluation scoreEvaluator = new LevenshteinEvaluation();
+            System.out.println("Total score: " + scoreEvaluator.levenshteinDistance(expertStr, studentStr));
 
+            /*
+
+            // This is the modified Levenshtein algorithm that display the global alignment of the strings, but does
+            // not correctly count the number of substitutions made.  Uncomment this block to use this version.
+
+            scoreEvaluator.align(expertStr, studentStr);
+            System.out.println("Global alignment: ");
+            System.out.println(scoreEvaluator.getGlobalString1());
+            System.out.println(scoreEvaluator.getGlobalString2());
+            System.out.println("Total score: " + scoreEvaluator.getAlignmentScore());
+
+            */
+
+            System.out.println("Would you like to compare another set of files?  Type 'y' to continue.  Otherwise, type 'n'.");
+            exitFlag = keyboard.next().charAt(0);
+        }
+        System.exit(0);
+    }
+
+    public static void setFilename1(String newName)
+    {
+        filename1 = newName;
+    }
+
+    public static void setFilename2(String newName)
+    {
+        filename2 = newName;
     }
 
     public static String getNotes(Sequence sequence, String noteString) {
